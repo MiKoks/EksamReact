@@ -1,7 +1,10 @@
 import Axios, { AxiosInstance } from 'axios';
 
 export abstract class BaseService {
-    protected static hostBaseURL = "https://localhost:7189/api/";
+    //protected static hostBaseURL = "https://localhost:7189/api/";
+    //protected static hostBaseURL = "http://localhost:8000/api/";
+    //protected static hostBaseURL = "https://studygroupback.azurewebsites.net/api/";
+    protected static hostBaseURL = "https:localhost:7261/api";
 
     protected axios: AxiosInstance;
 

@@ -6,7 +6,7 @@ import { BaseService } from "./BaseService";
 
 export class IdentityService extends BaseService {
     constructor() {
-        super('v1/identity/account/');
+        super('/identity/account/');
     }
 
     async authenticateUser(token: string): Promise<boolean> {

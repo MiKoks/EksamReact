@@ -17,14 +17,15 @@ import ErrorPage from './routes/ErrorPage';
 import Login from './routes/identity/Login';
 import Register from './routes/identity/Register';
 import Privacy from './routes/Privacy';
-import Courses from './routes/courses/Courses';
+
 import Home from './routes/Home';
 import Info from './routes/identity/Info';
-import StudyGroups from './routes/studyGroups/StudyGroups';
-import SelectedCourseView from './routes/courses/SelectedCourseView';
+
+
 import { IdentityService } from './services/IdentityService';
-import SignalRService from './services/SignalRService';
-import SignalRComponent from './routes/Chats/SignalRComponent';
+
+
+import Appartment from './routes/Apartment/Appartment';
 //import signalRService from './signalRService';
 //import SignalRTest from './SignalRTest'
 
@@ -55,22 +56,9 @@ const router = createBrowserRouter([
               element: <Privacy />,
           },
           {
-            path: "courses/",
-            element: <Courses />,
-            children: [
-              {
-              path: "selectedCourseView/",
-              element: <SelectedCourseView />,
-            },
-          ]
-          },
-          {
-            path: "studyGroups/",
-            element: <StudyGroups />,
-          },
-          {
-            path: "myhub/",
-            element: <SignalRComponent />,
+            path: "appartment/",
+            element: <Appartment />,
+            
           },
           
       ]
