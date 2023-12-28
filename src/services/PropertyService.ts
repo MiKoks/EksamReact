@@ -1,16 +1,16 @@
-import { IAppartment } from "../domain/IAppartment";
-import { IAppartmentAdd } from "../domain/IAppartmentAdd";
+import { IProperty } from "../domain/IProperty";
 import { IJWTResponse } from "../dto/IJWTResponse";
 import { BaseEntityService } from "./BaseEntityService";
+import { IPropertyAdd } from "../domain/IPropertyAdd";
 
-export class AppartmentService extends BaseEntityService<IAppartment> {
+export class PropertyService extends BaseEntityService<IProperty> {
     constructor(setJwtResponse: ((data: IJWTResponse | null) => void)){
-        super('/Apartment', setJwtResponse);
+        super('/Property', setJwtResponse);
     }
 
-    async add(jwtData: IJWTResponse, newAppartment: IAppartmentAdd): Promise<boolean> {
+    async add(jwtData: IJWTResponse, newProperty: IPropertyAdd): Promise<boolean> {
         try {
-            const response = await this.axios.post("http://localhost:7261/api/Apartment", newAppartment, {
+            const response = await this.axios.post("http://localhost:7261/api/property", newProperty, {
                 headers: {
                     'Authorization': 'Bearer ' + jwtData.jwt 
                 }
@@ -21,10 +21,10 @@ export class AppartmentService extends BaseEntityService<IAppartment> {
                 return true;
             }
 
-            console.log('Failed to add Appartment:', response);
+            console.log('Failed to add Property:', response);
             return false;
         } catch (e) {
-            console.error('Error adding Appartment:', (e as Error).message, e);
+            console.error('Error adding Property:', (e as Error).message, e);
             return false;
         }
     }

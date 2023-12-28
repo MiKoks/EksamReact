@@ -1,7 +1,7 @@
 import { IAppartment } from "./IAppartment";
 import { IBaseEntity } from "./IBaseEntity";
 
-export interface IProperty extends IBaseEntity {
+export interface IPropertyAdd extends IBaseEntity {
     address: string,
-    apartments: IAppartment[]
+    appartments: IAppartment[] 
 }

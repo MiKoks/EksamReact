@@ -1,7 +1,7 @@
 import { IJWTResponse } from "../dto/IJWTResponse";
 import { ILoginData } from "../dto/ILoginData";
 import { IRegisterData } from "../dto/IRegisterData";
-import IdentityState from "../state/IdentityState";
+
 import { BaseService } from "./BaseService";
 
 export class IdentityService extends BaseService {

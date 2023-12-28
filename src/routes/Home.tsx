@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
     return (
         <div className="text-center">
-            <h1 className="display-4">StudyGroupFinder</h1>
+            <h1 className="display-4">Housing101</h1>
             
         </div>
     );

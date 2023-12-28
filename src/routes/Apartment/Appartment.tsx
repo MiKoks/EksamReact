@@ -3,6 +3,7 @@ import { JwtContext } from "../Root";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { AppartmentService } from "../../services/AppartmentService";
 import { IAppartment } from "../../domain/IAppartment";
+import { IAppartmentAdd } from "../../domain/IAppartmentAdd";
 import IAppUser from "../../domain/IAppUser";
 
 
@@ -11,11 +12,11 @@ const Appartment = () => {
     const appartmentService = new AppartmentService(setJwtResponse!);
 
     const [data, setData] = useState([] as IAppartment[]);
-    const [newAppartment, setNewAppartment] = useState({ floornumber: 0,roomcount: 0, monthlyrent: 0.0, status: "true",});
+    const [newAppartment, setNewAppartment] = useState({ floornumber: 0,roomcount: 0, monthlyrent: 0.0, status: true ? true:false,});
 
     const [apartment, setApartment] = useState([] as IAppartment[]);
     //const [selectedCourseId, setSelectedCourseId] = useState("");
-    const apartmentService = new AppartmentService(setJwtResponse!);
+    //const apartmentService = new AppartmentService(setJwtResponse!);
     useEffect(() => {
         if (jwtResponse) {
             appartmentService.getAll(jwtResponse).then(
@@ -45,11 +46,6 @@ const Appartment = () => {
         navigate(`../studygroups/selectedStudyGroupView`, { state: appartment });
     };*/
 
-    const handleNewAppartmentChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setNewAppartment((prevAppartment) => ({ ...prevAppartment, [name]: value }));
-    };
-
     const handleNewStudygroupSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -58,13 +54,13 @@ const Appartment = () => {
                 ...newAppartment,
                 //courseId: selectedCourseId // Use selectedCourseId if you want to use the selectedCourseId state variable
             };
-            const mappingInput: IAppartment = {floorNumber: AppartmentToCreate.floornumber,roomCount: AppartmentToCreate.roomcount, monthlyRent: AppartmentToCreate.monthlyrent, status: AppartmentToCreate.status === "true" ? true:false };
+            const mappingInput: IAppartmentAdd = {floorNumber: AppartmentToCreate.floornumber,roomCount: AppartmentToCreate.roomcount, monthlyRent: AppartmentToCreate.monthlyrent, status: AppartmentToCreate.status };
             const success = await appartmentService.add(jwtResponse, mappingInput);
             
 
             if (success) {
                 // refresh course list after
-                const updatedAppartment = await apartmentService.getAll(jwtResponse);
+                const updatedAppartment = await appartmentService.getAll(jwtResponse);
                 if (updatedAppartment) {
                     setData(updatedAppartment);
                 }
@@ -73,36 +69,35 @@ const Appartment = () => {
             
 
             // clear
-            setNewAppartment({ floornumber: 0,roomcount: 0, monthlyrent: 0.0, status: "",});
+            setNewAppartment({ floornumber: 0,roomcount: 0, monthlyrent: 0.0, status: true,});
         }
     };
 
-    const handleCourseChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        const { name, value } = event.target;
-        setNewAppartment((prevStudyGroup) => ({
-            ...prevStudyGroup,
-            [name]: value // Make sure the name attribute of the select element is 'courseId'
-        }));
-        
+    const handleNewAppartmentChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, type, checked, value } = event.target;
+        if (type === "checkbox") {
+            setNewAppartment(prevAppartment => ({ ...prevAppartment, [name]: checked }));
+        } else {
+            setNewAppartment(prevAppartment => ({ ...prevAppartment, [name]: value }));
+        }
     };
-
 
     return (
         <>
         <Outlet />
         <br></br>
-            <label htmlFor="Appartment">StudyGroups</label>
+            <label htmlFor="Appartment">Appartments</label>
             <ul>
             {data.map((appartment) => (
                 <strong>
                 <li key={appartment.id}>
-                    {appartment.floorNumber} - {appartment.monthlyRent} - {appartment.roomCount} - {appartment.status}
+                    floornumber: {appartment.floorNumber} | monthly rent: {appartment.monthlyRent} | room count: {appartment.roomCount} | availability: {appartment.status ? "Available": "Rented"} | current lease holder: {appartment.currentLease !== null && appartment.currentLease !== undefined ? appartment.currentLease.appUser.firstName + appartment.currentLease.appUser.lastName : ""}
                 </li>
                 </strong>
             ))}
         </ul>
 
-        <form onSubmit={handleNewStudygroupSubmit}>
+        {/*<form onSubmit={handleNewStudygroupSubmit}>
                 <label htmlFor="floornumber">floor number:</label>
                 <input
                     type="text"
@@ -125,22 +120,15 @@ const Appartment = () => {
                     value={newAppartment.monthlyrent}
                     onChange={handleNewAppartmentChange}
                 />
-                <label htmlFor="status">status:</label>
+                <label htmlFor="status">is available:</label>
                 <input
-                    type="text"
+                    type="checkbox"
                     name="status"
-                    value={newAppartment.status}
-                    onChange={handleNewAppartmentChange}
-                />
-                <label htmlFor="status">status:</label>
-                <input
-                    type="text"
-                    name="status"
-                    value={newAppartment.status}
+                    checked={newAppartment.status}
                     onChange={handleNewAppartmentChange}
                 />
                 <button type="submit">Add Appartment</button>
-            </form>
+            </form>*/}
 
         </>
     );

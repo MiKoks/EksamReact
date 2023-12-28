@@ -1,8 +1,12 @@
+import IAppUser from "./IAppUser";
 import { IBaseEntity } from "./IBaseEntity";
 
-export interface IAppartment extends IBaseEntity {
-    floorNumber: number,
-    roomCount: number,
-    monthlyRent: number,
-    status: boolean  
+export interface ILease extends IBaseEntity {
+     appartmentId: string,
+     appUserId: string,
+     appUser: IAppUser
+     startDate?: Date,
+     endDate?: Date,
+     monthlyRent: number,
+     servicesIncluded: string,
 }

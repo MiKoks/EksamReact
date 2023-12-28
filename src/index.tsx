@@ -26,8 +26,8 @@ import { IdentityService } from './services/IdentityService';
 
 
 import Appartment from './routes/Apartment/Appartment';
-//import signalRService from './signalRService';
-//import SignalRTest from './SignalRTest'
+import Property from './routes/Property/Property';
+import AddNewProperty from './routes/Property/AddNewProperty';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +58,11 @@ const router = createBrowserRouter([
           {
             path: "appartment/",
             element: <Appartment />,
+            
+          },
+          {
+            path: "Property/",
+            element: <Property />,
             
           },
           
